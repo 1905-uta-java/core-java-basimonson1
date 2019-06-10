@@ -1,8 +1,11 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class EvaluationService {
 
@@ -14,8 +17,22 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String reverse(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		// initialize as nothing
+		String result = "";
+		
+		/*
+		 *  Use a for loop to cycle through the string one character at a time. Use string.length() - 1 to get the length. 
+		 *  - 1 is necessary to prevent out of bounds
+		 *  i -- so that the for loop moves backwards through the index (4, 3, 2, 1, 0)
+		 *  save each character as it prints out to a new string and return that result
+		 */
+		
+		for (int i = string.length() - 1; i >= 0; i --) {
+			result = result + string.charAt(i);
+		}
+
+		return result;
 	}
 
 	/**
@@ -27,8 +44,44 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		// Separate out each word and then take the first character of each word. Make it uppercase and add it to the acronym.
+		
+		String result = "";
+		char[] words;
+		words = phrase.toCharArray();
+		
+		for (int i = 0; i <= words.length -1; i ++) {
+			if (i > 0 && words[i-1] != ' ') {
+				words[i] = Character.toLowerCase(words[i]);
+			}
+			
+			if ((i > 0 && words[i-1] == ' ') || (i > 0 && words[i-1] == '-')) {
+				words[i] = Character.toUpperCase(words[i]);
+			}
+			
+			if (Character.isUpperCase(words[i])) {
+				result = result + words[i];
+			}
+			
+		}
+		
+		
+		
+//		for (int i = 0; i <= phrase.length() - 1; i++) {
+//			
+//			if(i > 0 && phrase.charAt(i-1) != ' ') {
+//				char curChar = phrase.charAt(i);
+//				curChar = Character.toLowerCase(curChar);
+//			}
+//			
+//			if (Character.isUpperCase(phrase.charAt(i))){
+//				result = result + phrase.charAt(i);
+//			}
+//			
+//		}
+		
+		return result;
 	}
 
 	/**
@@ -81,18 +134,37 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			
+			boolean result = false;
+
+			if (sideOne == sideTwo && sideTwo == sideThree) {
+				result = true;
+			}
+			
+			return result;
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+
+			boolean result = false;
+			
+			if (sideOne == sideTwo || sideTwo == sideThree || sideThree == sideOne) {
+				result = true;
+			}
+			
+			return result;
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			boolean result = false;
+
+			if (sideOne == sideTwo || sideTwo == sideThree || sideThree == sideOne) {
+				result = false;
+			} else {
+				result = true;
+			}
+			
+			return result;
 		}
 
 	}
@@ -113,8 +185,91 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		
+		String word = "";
+		int score = 0;
+		char[] value1 = {'A','E','I','O','U','L','N','R','S','T','a','e','i','o','u','l','n','r','s','t'};
+		char[] value2 = {'D','G','d','g'};
+		char[] value3 = {'B','C','M','P','b','c','m','p'};
+		char[] value4 = {'F','H','V','W','Y','f','h','v','w','y'};
+		char[] value5 = {'K','k'};
+		char[] value8 = {'J','X','j','x'};
+		char[] value10 = {'Q','Z','q','z'};
+		
+		
+		
+		for (int i = 0; i <= string.length() - 1; i++) {
+			
+			word = word + string.charAt(i);
+			//System.out.println(word);
+			
+			for (int c = 0; c <= value1.length - 1; c++) {
+				char cycle;
+				cycle = value1[c];
+				
+				if (string.charAt(i) == cycle) {
+					score++;
+				}
+			}
+			
+			for (int c = 0; c <= value2.length - 1; c++) {
+				char cycle;
+				cycle = value2[c];
+				
+				if (string.charAt(i) == cycle) {
+					
+					score = score + 2;
+				}
+			}
+			
+			for (int c = 0; c <= value3.length - 1; c++) {
+				char cycle;
+				cycle = value3[c];
+				
+				if (string.charAt(i) == cycle) {
+					score = score + 3;
+				}
+			}
+			
+			for (int c = 0; c <= value4.length - 1; c++) {
+				char cycle;
+				cycle = value4[c];
+				
+				if (string.charAt(i) == cycle) {
+					score = score + 4;
+				}
+			}
+			
+			for (int c = 0; c <= value5.length - 1; c++) {
+				char cycle;
+				cycle = value5[c];
+				
+				if (string.charAt(i) == cycle) {
+					score = score + 5;
+				}
+			}
+			
+			for (int c = 0; c <= value8.length - 1; c++) {
+				char cycle;
+				cycle = value8[c];
+				
+				if (string.charAt(i) == cycle) {
+					score = score + 8;
+				}
+			}
+			
+			for (int c = 0; c <= value10.length - 1; c++) {
+				char cycle;
+				cycle = value10[c];
+				
+				if (string.charAt(i) == cycle) {
+					score = score + 10;
+				}
+			}
+						
+		}
+			
+		return score;
 	}
 
 	/**
@@ -149,8 +304,29 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		String[] numbers = string.split("[1| |-|.|(|)|-]");
+		
+		String result = "";
+		try {
+			for (String test : numbers) {
+				result = result + test;
+						
+				if ((result.length() > 10 && string.charAt(0) != '1')) {
+					throw new IllegalArgumentException();
+				} 	
+			}
+			
+			if (result.matches("^[0-9]+$")){
+			} else {
+				throw new IllegalArgumentException();
+			}
+
+		} catch (IllegalArgumentException e) {
+			throw e;
+		}
+		
+		return result;
 	}
 
 	/**
@@ -163,8 +339,32 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		HashMap<String, Integer> map = new HashMap<>();
+		
+		String[] phrase = string.split(" |,");
+		
+		String[]trimmedPhrase = new String[phrase.length];
+		
+		for (int i = 0; i < phrase.length; i++) {
+		    trimmedPhrase[i] = phrase[i].trim();
+		}
+		
+		String result = "";
+		
+		for (String test : trimmedPhrase) {
+			result = test;
+			
+			if (map.containsKey(result)) {
+				System.out.println("If statement");
+				map.put(result, map.get(result) + 1);
+			} else {
+				map.put(result, 1);
+			}
+						
+		}
+		
+		return map;
 	}
 
 	/**
@@ -202,17 +402,83 @@ public class EvaluationService {
 	 * binary search is a dichotomic divide and conquer search algorithm.
 	 * 
 	 */
-	static class BinarySearch<T> {
-		private List<T> sortedList;
+	static class BinarySearch<T extends Comparable> {
+		private List<T> sortedList = new ArrayList<T>();
+		
+		static Integer key;
+				
+
 
 		public int indexOf(T t) {
-			// TODO Write an implementation for this method declaration
-			return 0;
+			this.sortedList = sortedList;
+			
+			
+			
+			int lower = 0;
+			int upper = sortedList.size()-1;
+			int mid = (lower + upper) / 2;
+			List<Integer> intList = new ArrayList<>();
+			List<String> stringList = new ArrayList<>();
+			
+			System.out.println(t.getClass().toString() + " " + sortedList.get(mid).getClass().toString());
+			for (int i = 0; i < sortedList.size(); i++) {
+				stringList.add(sortedList.get(i).toString());
+			}
+			
+			for (int i = 0; i < sortedList.size(); i++) {
+				intList.add(Integer.parseInt(stringList.get(i)));
+			}
+			
+			
+
+		//	int result = (int)t.compareTo((int)intList.get(mid));
+			
+			int result = t.compareTo(sortedList.get(mid));
+			
+			if (result == 0) {
+				key = mid;
+			}
+			
+			
+			
+			while (result != 0) {
+				if (result == 1) {
+					lower = mid;
+					System.out.println("Upper: " + upper + " Mid: " + mid + " Lower: " + lower);	
+					mid = (upper + lower) / 2;
+					if (lower == (upper - 1)) {
+						mid = upper;
+					} 
+					System.out.println("Upper: " + upper + " Mid: " + mid + " Lower: " + lower );					
+					result = t.compareTo(sortedList.get(mid));
+					System.out.println(result);
+					
+				} else if (result == -1) {
+					upper = mid;
+					System.out.println("Upper: " + upper + " Mid: " + mid + " Lower: " + lower);
+					mid = (upper + lower) / 2;
+					if (upper == - 1) {
+						mid = 0;
+					}
+					System.out.println("Upper: " + upper + " Mid: " + mid + " Lower: " + lower);
+					//midVal = (int) sortedList.get(mid);
+					System.out.println("Upper: " + upper + " Mid: " + mid + " Lower: " + lower);
+					result = t.compareTo(sortedList.get(mid));
+					System.out.println(result);
+				} 
+				
+				key = mid;
+			}
+			System.out.println("KEY: " +key);
+
+			return key;
 		}
 
 		public BinarySearch(List<T> sortedList) {
 			super();
 			this.sortedList = sortedList;
+			sortedList.toArray();
+			
 		}
 
 		public List<T> getSortedList() {
@@ -242,8 +508,49 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		
+		String digits = Integer.toString(input);
+		char[] singleDig = digits.toCharArray();
+		char curChar;
+		ArrayList<Integer> hold = new ArrayList<>();
+		int output = 0;
+		
+		
+		/*
+		 * Take the input, convert to string, then store each character into a character array.
+		 * Use Math.pow to take the curCharacter and exponentially multiply by the length of the input.
+		 * Store that answer in an ArrayList
+		 */
+		for (int i = 0; i <= digits.length() -1; i++) {
+			curChar = singleDig[i];
+			
+			curChar = (char) Integer.parseInt(String.valueOf(curChar));
+			
+			int answer = (int) Math.pow(curChar, digits.length());
+			
+			hold.add(answer);
+			
+		}
+		
+		/*
+		 * Take each value in the ArrayList and add them together. 
+		 * If they equal the input, return true, else return false
+		 */
+		
+		for (int i = 0; i <= hold.size() - 1; i++) {
+			output = output + hold.get(i);
+			
+		}
+		
+		digits.toCharArray();
+		
+		
+		if (output == input) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 
 	/**
@@ -260,8 +567,38 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		
+		HashMap<Character, Integer> map = new HashMap<>();
+		
+		string = string.replaceAll("\\s", ""); // remove all white space from strings
+				
+		char[] letters = string.toCharArray(); // create a character array from the string
+		
+		for (char c = 'a'; c < 'z'; c++) { // put all letters of the alphabet into the map with a value of 0
+			map.put(c, 0);
+		}
+				
+		
+		for (char c : letters) { // for each letter that the string contains, increase the value by one
+			if (map.containsKey(c)) {
+				map.put(c, map.get(c) + 1);
+			} else {
+				map.put(c, 1);
+			}
+		}
+				
+		for (Map.Entry<Character, Integer> entry : map.entrySet()) { // Check if any map values = 0, if they do, they fail
+			if ((int)entry.getValue() == 0) {
+				return false;
+			} 
+		}
+		
+		if (map.isEmpty()) { //if the map has nothing, it returns false
+			return false;
+		}
+		
+		
+		return true;
 	}
 
 	
@@ -293,15 +630,69 @@ public class EvaluationService {
 	 */
 	static class RotationalCipher {
 		private int key;
+		char curChar;
+//
+//		List<Character> letters = new ArrayList<>();
+//		List<Character> words = new ArrayList<>();
+//		List<Character> hold = new ArrayList<>();
+//		List<Character> result = new ArrayList<>();
+		
+		int index;
+		String result;
+		
+		HashMap<Integer, Character> letters = new HashMap<>();
+		HashMap<Integer, Character> upper = new HashMap<>();
 
+		
 		public RotationalCipher(int key) {
 			super();
 			this.key = key;
 		}
 
 		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			
+			//string = string.toLowerCase();
+			
+			char[] sentence = string.toCharArray();
+			
+			for (char c = 'a'; c <= 'z'; c++) {
+				letters.put(index, c);
+				index++;
+			}
+			
+			index = 0;
+			for (char c = 'A'; c <= 'Z'; c++) {
+				upper.put(index, c);
+				index++;
+			}
+
+			
+			for (int i = 0; i < sentence.length; i++) {
+				for (int j = 0; j < letters.size(); j++) {
+					index = j;
+					int newIndex = index + key;
+					if (newIndex  > 25) {
+						newIndex = newIndex - 26;
+					}
+					
+					if (sentence[i] == upper.get(j)) {
+						sentence[i] = upper.get(newIndex);
+						break;
+					}
+					
+					// System.out.println(letters.get(j));
+					if (sentence[i] == letters.get(j)) {
+						sentence[i] = letters.get(newIndex);
+						break;
+				
+					}
+				}
+			}
+			
+			String result = new String(sentence);
+			
+			System.out.println(result);
+			return result;
 		}
 
 	}
@@ -339,9 +730,82 @@ public class EvaluationService {
 		 * @param string
 		 * @return
 		 */
+		
+		static int index;
+		String result;
+		
+		static HashMap<Integer, Character> letters = new HashMap<>();
+		static HashMap<Integer, Character> reverse = new HashMap<>();
+		static ArrayList<Character> sentence2 = new ArrayList<>();
+		static ArrayList<Character> numbers = new ArrayList<>();
+		static char[] sentence;
+		static int count;
+
+		
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			string = string.toLowerCase();
+			string = string.replaceAll(",", "");
+			string = string.replaceAll("\\s", "");
+			sentence = string.toCharArray();
+			sentence2.clear();
+						
+			numbers.add('0');
+			numbers.add('1');
+			numbers.add('2');
+			numbers.add('3');
+			numbers.add('4');
+			numbers.add('5');
+			numbers.add('6');
+			numbers.add('7');
+			numbers.add('8');
+			numbers.add('9');
+			
+			for (char c = 'a'; c <= 'z'; c++) {
+				letters.put(index, c);
+				index++;
+			}
+			index = 0;
+			
+			for (char c = 'z'; c >= 'a'; c--) {
+				reverse.put(index, c);
+				index++;
+			}
+			
+			
+			for (int i = 0; i < sentence.length; i++) {
+				if (i % 5 == 0) {
+					sentence2.add(' ');
+				}
+				for (int j = 0; j < letters.size(); j++) {
+					
+					// System.out.println(letters.get(j));
+					if (sentence[i] == letters.get(j)) {
+						sentence[i] = reverse.get(j);
+						sentence2.add(sentence[i]);
+						break;
+					} 
+				}
+				
+				for (int k = 0; k < numbers.size(); k++) {
+				if (sentence[i] == numbers.get(k)) {
+					sentence2.add(sentence[i]);
+					break;
+					}
+				}
+			}
+			
+			if (sentence2.get(0) == ' ') {
+				sentence2.remove(sentence2.get(0));
+			}
+			if (sentence2.get(sentence2.size()-1) == ' ') {
+				sentence2.remove(sentence2.size()-1);
+			}
+			
+			String result3 = sentence2.stream().map(String :: valueOf).collect(Collectors.joining());
+			
+			System.out.println(result3);
+			
+			return result3;
 		}
 
 		/**
@@ -351,8 +815,69 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			string = string.toLowerCase();
+			string = string.replaceAll(",", "");
+			string = string.replaceAll("\\s", "");
+			sentence = string.toCharArray();
+			sentence2.clear();
+			
+			numbers.add('0');
+			numbers.add('1');
+			numbers.add('2');
+			numbers.add('3');
+			numbers.add('4');
+			numbers.add('5');
+			numbers.add('6');
+			numbers.add('7');
+			numbers.add('8');
+			numbers.add('9');
+			
+			for (char c = 'a'; c <= 'z'; c++) {
+				reverse.put(index, c);
+				index++;
+			}
+			index = 0;
+			
+			for (char c = 'z'; c >= 'a'; c--) {
+				letters.put(index, c);
+				index++;
+			}
+			
+			
+			for (int i = 0; i < sentence.length; i++) {
+				if (i % 5 == 0) {
+					
+				}
+				for (int j = 0; j < letters.size(); j++) {
+					
+					// System.out.println(letters.get(j));
+					if (sentence[i] == letters.get(j)) {
+						sentence[i] = reverse.get(j);
+						sentence2.add(sentence[i]);
+						break;
+					} 
+				}
+				
+				for (int k = 0; k < numbers.size(); k++) {
+				if (sentence[i] == numbers.get(k)) {
+					sentence2.add(sentence[i]);
+					break;
+					}
+				}
+			}
+			
+			if (sentence2.get(0) == ' ') {
+				sentence2.remove(sentence2.get(0));
+			}
+			if (sentence2.get(sentence2.size()-1) == ' ') {
+				sentence2.remove(sentence2.size()-1);
+			}
+			
+			String result3 = sentence2.stream().map(String :: valueOf).collect(Collectors.joining());
+			
+			System.out.println(result3);
+			
+			return result3;		
 		}
 	}
 
